@@ -1,0 +1,21 @@
+model:
+  default: "fredrezones55/Jan-code:Q4_K_M"
+  base_url: "http://host.docker.internal:11434/v1"
+  context_length: 32768
+display:
+  streaming: true
+  tool_progress: all
+  compact: false
+terminal:
+  backend: local
+  cwd: "."
+  timeout: 240
+  persistent_shell: true
+memory:
+  memory_enabled: true
+  user_profile_enabled: true
+agent:
+  reasoning_effort: high
+compression:
+  summary_provider: main
+  summary_model: "relational/orlex:latest"

@@ -1,0 +1,31 @@
+# Secrets
+.env
+.env.*
+*.key
+*.token
+
+# Agent/session state
+auth.json
+state.db
+state.db-*
+*.jsonl
+logs/
+sessions/
+cache/
+
+# OS/editor
+.DS_Store
+Thumbs.db
+*.tmp
+*.bak
+*.swp
+
+# Python
+__pycache__/
+*.pyc
+
+# Node
+node_modules/
+
+# Personal notes
+private/

@@ -1,0 +1,12 @@
+model: ollama/novaforgeai/starcoder2:3b-optimized
+editor-model: ollama/novaforgeai/starcoder2:3b-optimized
+weak-model: ollama/novaforgeai/starcoder2:3b-optimized
+auto-commits: false
+git: true
+gitignore: true
+map-tokens: 768
+cache-prompts: true
+stream: true
+show-diffs: true
+edit-format: whole
+analytics: false

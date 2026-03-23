@@ -1,0 +1,9 @@
+model: ollama/fredrezones55/Jan-code:Q4_K_M
+editor-model: ollama/fredrezones55/Jan-code:Q4_K_M
+weak-model: ollama/fredrezones55/Jan-code:Q4_K_M
+map-tokens: 1024
+cache-prompts: true
+stream: true
+show-diffs: true
+edit-format: whole
+analytics: false

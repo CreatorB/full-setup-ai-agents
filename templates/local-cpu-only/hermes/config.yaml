@@ -1,0 +1,11 @@
+model:
+  default: "novaforgeai/starcoder2:3b-optimized"
+  base_url: "http://host.docker.internal:11434/v1"
+  context_length: 16384
+display:
+  streaming: true
+  tool_progress: all
+terminal:
+  backend: local
+  cwd: "."
+  timeout: 240
