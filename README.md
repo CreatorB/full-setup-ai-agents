@@ -1,16 +1,19 @@
-# Full Setup AI Agents
+# FUSE AI 🤖 (FUll SEtup AI Agents)
 
-![Windows](https://img.shields.io/badge/platform-Windows%2011-0078D6?style=flat-square)
-![Ollama](https://img.shields.io/badge/runtime-Ollama-111111?style=flat-square)
-![Agents](https://img.shields.io/badge/agents-Aider%20%7C%20Hermes%20%7C%20Pi-4B5563?style=flat-square)
-![Focus](https://img.shields.io/badge/focus-Local%20AI%20Engineering-0F766E?style=flat-square)
+![Focus](https://img.shields.io/badge/LEGIT-local%20AI%20engineering-0F766E?style=flat-square)
+![Platform](https://img.shields.io/badge/platform-Windows%20%2B%20WSL-2563EB?style=flat-square)
+![Runtime](https://img.shields.io/badge/runtime-Ollama-111827?style=flat-square)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](http://makeapullrequest.com)
 
 Practical setup guides, reusable templates, and sync workflows for running local AI coding agents with Ollama.
 
-This repository focuses on three agents:
+This repository documents a real developer stack built around:
 - Aider
 - Hermes Agent
 - Pi Coding Agent
+- OpenCode
+- Continue.dev
+- Ollama
 
 It is built for people who want a real local workflow for create, read, update, and delete tasks on actual project files, not just chat demos.
 
@@ -44,6 +47,25 @@ This repository tries to be more useful:
 | Hermes Agent | Secondary workflow, planning, WSL-based usage |
 | Pi | Lean customizable coding harness |
 
+## Related Tooling Ecosystem
+
+These are not all configured as primary agents in the same way, but they are part of the practical tool ecosystem around this setup:
+
+| Tool | Role |
+|---|---|
+| Ollama | local model runtime |
+| OpenCode | hosted coding workflow option |
+| Continue.dev | editor integration, autocomplete, and inline assistance |
+| CodeGemma | autocomplete-oriented local model |
+| Zed IDE | modern editor worth testing for AI-native workflows |
+
+## Useful External Resources
+
+- `https://context7.com` -> useful for fetching fresher framework and library documentation context
+- `https://opencode.ai` or your OpenCode access path -> strong hosted coding workflow option, often good for free-tier experimentation depending on account access
+- `https://build.nvidia.com` -> worth testing for free hosted model access and experimentation
+- `https://zed.dev` -> Zed IDE is worth trying if you want another AI-friendly editor workflow
+
 ## Supported Environments
 
 - `local-gpu-4gb` - fully documented from a real working setup
@@ -52,15 +74,18 @@ This repository tries to be more useful:
 ## Current Local GPU 4GB Model Strategy
 
 - `fredrezones55/Jan-code:Q4_K_M` -> daily coding default
-- `relational/orlex:latest` -> planning, architecture, reasoning
-- `fredrezones55/qwen3.5-opus:4b` -> heavier mixed fallback
+- `aikid123/Qwen3-coder:latest` -> fast code and chat with thinking
+- `fredrezones55/qwen3.5-opus:4b` -> complex thinking code and heavier work
+- `relational/orlex:latest` -> backup reasoning and planning model
+- `rardiolata/CodeTito:latest` -> backup coding model
+- `codegemma:2b` -> autocomplete-oriented editor helper
 - `nomic-embed-text:latest` -> embeddings only, not for chat/coding
 
 ## Environment Comparison
 
 | Environment | Status | Best Default | Notes |
 |---|---|---|---|
-| Local GPU 4GB | Tested | `fredrezones55/Jan-code:Q4_K_M` | Best current practical reference |
+| Local GPU 4GB | Tested | `fredrezones55/Jan-code:Q4_K_M` | Daily coding default with a multi-model role split |
 | Local CPU Only | Recommended | NovaforgeAI small models or API-backed providers | Good contribution target for future validation |
 
 ## Quick Start
@@ -88,6 +113,8 @@ assets/     -> screenshots and images
 - `docs/agents/aider.md`
 - `docs/agents/hermes-agent.md`
 - `docs/agents/pi-agent.md`
+- `docs/agents/continue-dev.md`
+- `docs/agents/opencode.md`
 - `docs/models/model-strategy.md`
 - `docs/models/novaforgeai-cpu-only.md`
 - `docs/models/cpu-only-provider-strategy.md`
@@ -156,6 +183,9 @@ Useful contributions include:
 - larger local GPU setups
 - better CPU-only model recommendations
 - alternative local model families
+- Continue.dev presets and editor configs
+- OpenCode or Build NVIDIA hosted usage notes
+- Zed IDE workflow notes
 - different launcher strategies
 
 If you maintain your own agent stack, consider contributing:

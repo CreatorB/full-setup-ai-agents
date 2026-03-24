@@ -1,6 +1,7 @@
 # Hermes Model Guide
 
 - Use `hdev` or `hjan` for daily coding
-- Use `hplan` or `horlex` for planning and architecture
-- Use `hheavy` or `hopus` for a heavier fallback
+- Use `hqcoder` for fast code and chat with thinking
+- Use `hplan` or `hopus` for complex thinking code
+- Use `horlex` or `htito` as backup models
 - Use `hmodels` to review current recommendations

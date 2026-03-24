@@ -1,0 +1,9 @@
+model: ollama/aikid123/Qwen3-coder:latest
+editor-model: ollama/aikid123/Qwen3-coder:latest
+weak-model: ollama/fredrezones55/Jan-code:Q4_K_M
+map-tokens: 1024
+cache-prompts: true
+stream: true
+show-diffs: true
+edit-format: whole
+analytics: false

@@ -15,15 +15,20 @@ This is the fully documented reference setup in this repository.
 ## Recommended Models
 
 - `fredrezones55/Jan-code:Q4_K_M` -> daily coding default
-- `relational/orlex:latest` -> planning and architecture
-- `fredrezones55/qwen3.5-opus:4b` -> heavier fallback
+- `aikid123/Qwen3-coder:latest` -> fast code and chat with thinking
+- `fredrezones55/qwen3.5-opus:4b` -> complex thinking code and heavier work
+- `relational/orlex:latest` -> backup reasoning and architecture
+- `rardiolata/CodeTito:latest` -> backup coding model
+- `codegemma:2b` -> autocomplete-oriented editor helper
 - `nomic-embed-text:latest` -> embeddings only
 
 ## Why This Model Split
 
 - Jan-code gives the best current balance for daily coding on 4GB-class hardware
-- Orlex is better reserved for reasoning-heavy tasks
-- Qwen3.5 Opus 4B is useful, but heavier and not the first choice for long sessions
+- Aikid Qwen3-coder is a good fast code/chat model with thinking support
+- Qwen3.5 Opus 4B is reserved for heavier complex reasoning and code work
+- Orlex and CodeTito are backups, not first choices
+- CodeGemma is better used for autocomplete than full agent workflows
 
 ## Agent Recommendations
 
@@ -35,6 +40,7 @@ Recommended commands:
 
 - `adev`
 - `asafe`
+- `aqcoder`
 - `aplan`
 - `aheavy`
 - `amodels`
@@ -47,6 +53,7 @@ Recommended commands:
 
 - `hdev`
 - `hsafe`
+- `hqcoder`
 - `hplan`
 - `hheavy`
 - `hmodels`
@@ -59,6 +66,7 @@ Recommended commands:
 
 - `pidev`
 - `psafe`
+- `pqcoder`
 - `pplan`
 - `pheavy`
 - `pmodels`

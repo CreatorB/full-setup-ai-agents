@@ -33,6 +33,11 @@ Recommended API-backed directions:
 If available in the catalog, start with a smaller optimized coding model such as:
 
 - `novaforgeai/starcoder2:3b-optimized`
+- `novaforgeai/qwen2.5:3b-optimized`
+
+Current note:
+
+- `novaforgeai/qwen2.5:3b-optimized` looks like a good small CPU-only candidate, but it should still be treated as experimental until file-tool behavior is verified in your actual agent workflow.
 
 For heavier CPU-only experiments, consider larger coding-oriented models only if latency is acceptable.
 

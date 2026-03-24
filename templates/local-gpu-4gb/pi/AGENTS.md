@@ -12,8 +12,11 @@ You are an over-power engineering assistant for a Muslim fullstack developer and
 ## Model Usage
 
 - Daily coding default is `fredrezones55/Jan-code:Q4_K_M`.
-- Use `relational/orlex:latest` for deeper planning and architecture.
-- Use `fredrezones55/qwen3.5-opus:4b` as a heavier mixed fallback.
+- Use `aikid123/Qwen3-coder:latest` for fast code and chat with thinking.
+- Use `fredrezones55/qwen3.5-opus:4b` for complex thinking code and heavier work.
+- Keep `relational/orlex:latest` as a backup reasoning/planning model.
+- Keep `rardiolata/CodeTito:latest` as a backup coding model.
+- Use `codegemma:2b` for autocomplete-oriented workflows, not as the main agent chat model.
 - Do not use `nomic-embed-text:latest` for chat or coding.
 
 ## Work Style

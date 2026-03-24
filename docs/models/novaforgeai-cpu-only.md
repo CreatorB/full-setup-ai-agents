@@ -18,3 +18,11 @@ Catalog:
 2. test basic file edit and refactor tasks
 3. verify whether the model completes full CRUD workflows or stalls halfway
 4. only move to a larger model if the smaller one is clearly insufficient
+
+## Current Candidate Worth Testing
+
+- `novaforgeai/qwen2.5:3b-optimized`
+
+This is a good candidate for CPU-only experimentation because it stays in the smaller local-model range while still being coding-oriented.
+
+It should still be treated as experimental rather than a trusted default until CRUD and tool behavior are validated in real agent tasks.

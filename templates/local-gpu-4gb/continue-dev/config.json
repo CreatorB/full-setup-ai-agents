@@ -1,0 +1,68 @@
+{
+  "models": [
+    {
+      "title": "⚡ Chat Qwen3-coder",
+      "provider": "ollama",
+      "model": "aikid123/Qwen3-coder:latest",
+      "description": "Fast Chat & Code"
+    },
+    {
+      "title": "🧑‍💻 Daily Jan-code",
+      "provider": "ollama",
+      "model": "fredrezones55/Jan-code:Q4_K_M",
+      "description": "Daily Coding"
+    },
+    {
+      "title": "🤖 Code2 Tito",
+      "provider": "ollama",
+      "model": "rardiolata/CodeTito:latest",
+      "description": "Backup coding model"
+    },
+    {
+      "title": "🤖 Code3 Orlex",
+      "provider": "ollama",
+      "model": "relational/orlex:latest",
+      "description": "Backup reasoning model"
+    },
+    {
+      "title": "🖼️ Qwen3.5-Opus",
+      "provider": "ollama",
+      "model": "fredrezones55/qwen3.5-opus:4b",
+      "description": "Thinking Text & Image"
+    }
+  ],
+  "tabAutocompleteModel": {
+    "title": "✨ Autocomplete CodeGemma-2B",
+    "provider": "ollama",
+    "model": "codegemma:2b"
+  },
+  "tabAutocompleteOptions": {
+    "useCopyBuffer": false,
+    "maxPromptTokens": 512,
+    "debounceDelay": 350
+  },
+  "embeddingsProvider": {
+    "provider": "ollama",
+    "model": "nomic-embed-text:latest",
+    "options": {
+      "maxChunkSize": 512
+    }
+  },
+  "contextProviders": [
+    {
+      "name": "codebase"
+    },
+    {
+      "name": "folder"
+    },
+    {
+      "name": "terminal"
+    }
+  ],
+  "allowAnonymousTelemetry": false,
+  "experimental": {
+    "useNewCodebaseSearch": true,
+    "parallelAutocomplete": true
+  },
+  "disableInlineEdits": false
+}

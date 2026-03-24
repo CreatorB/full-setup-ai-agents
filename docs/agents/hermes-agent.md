@@ -18,8 +18,10 @@ Hermes Agent runs in WSL in the documented reference setup.
 
 - `hdev`
 - `hsafe`
+- `hqcoder`
 - `hplan`
 - `hheavy`
+- `htito`
 - `hmodels`
 - `hmodel <model> [path]`
 
@@ -29,3 +31,10 @@ Hermes Agent runs in WSL in the documented reference setup.
 - WSL-based workflows
 - secondary coding assistant usage
 - controlled experiments with different local models
+
+## Current Model Role Mapping
+
+- Jan-code -> daily coding default
+- Aikid Qwen3-coder -> fast code and chat with thinking
+- Qwen3.5 Opus 4B -> complex thinking code and heavier work
+- Orlex and CodeTito -> backup models

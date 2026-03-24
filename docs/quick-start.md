@@ -10,6 +10,11 @@ Recommended default model:
 
 - `fredrezones55/Jan-code:Q4_K_M`
 
+Other important local roles:
+
+- `aikid123/Qwen3-coder:latest` for fast code and chat with thinking
+- `fredrezones55/qwen3.5-opus:4b` for complex thinking code
+
 Recommended starting agent:
 
 - Aider

@@ -15,6 +15,14 @@ This repository documents a local AI agent stack built around Ollama and three d
 - **Hermes Agent** is a flexible WSL-based assistant with a richer agent shell
 - **Pi** is a lean coding harness with strong customization potential
 
+## Adjacent Tooling Worth Knowing
+
+- **OpenCode** can be a strong hosted coding companion when local models are not enough
+- **Continue.dev** is a practical editor integration layer for chat, autocomplete, and local model usage
+- **Zed IDE** is worth testing if you want an AI-friendly editor with a different workflow style
+- **Context7** is useful when you want an agent to fetch fresher library and framework documentation context
+- **build.nvidia.com** is worth watching for hosted experimentation and model access options
+
 ## Environment Philosophy
 
 The repository uses environment folders and environment-specific docs rather than separate branches.

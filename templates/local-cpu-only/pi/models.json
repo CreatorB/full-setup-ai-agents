@@ -11,7 +11,8 @@
         "maxTokensField": "max_tokens"
       },
       "models": [
-        { "id": "novaforgeai/starcoder2:3b-optimized" }
+        { "id": "novaforgeai/starcoder2:3b-optimized" },
+        { "id": "novaforgeai/qwen2.5:3b-optimized" }
       ]
     }
   }
