@@ -100,9 +100,33 @@ These are not all configured as primary agents in the same way, but they are par
 docs/       -> setup guides, operations, troubleshooting, contribution notes
 templates/  -> reusable public-safe config templates by environment
 guides/     -> quick command references
-scripts/    -> sync helpers for keeping repo templates aligned with local setup
+scripts/    -> sync helpers and utilities (including Ollama auto-start fix)
 assets/     -> screenshots and images
 ```
+
+## Utilities
+
+### Ollama Auto-Start Fix
+
+Automated solution for Ollama startup issues after PC restart. Solves the common problem where Ollama processes hang and require manual restart after reboot.
+
+**Location:** [`scripts/ollama/`](scripts/ollama/)
+
+**Quick Setup:**
+```bash
+cscript scripts\ollama\setup-ollama-startup.vbs
+```
+
+**Features:**
+- Automatic startup after PC restart
+- Kills hung processes automatically
+- 10-second delay for system stability
+- Runs minimized in background
+- No admin privileges required
+
+**Documentation:**
+- [Full Guide](scripts/ollama/README.md)
+- [Quick Reference](scripts/ollama/QUICK-REFERENCE.md)
 
 ## Documentation Map
 
@@ -124,6 +148,7 @@ assets/     -> screenshots and images
 - `docs/operations/troubleshooting.md`
 - `docs/operations/security.md`
 - `docs/contribution-guide.md`
+- **`scripts/ollama/README.md`** - Ollama auto-start utilities
 
 ## Why Back Up Agent Configs at All?
 
