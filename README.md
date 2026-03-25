@@ -88,6 +88,123 @@ These are not all configured as primary agents in the same way, but they are par
 | Local GPU 4GB | Tested | `fredrezones55/Jan-code:Q4_K_M` | Daily coding default with a multi-model role split |
 | Local CPU Only | Recommended | NovaforgeAI small models or API-backed providers | Good contribution target for future validation |
 
+## Cost-Saving Strategies: Hybrid Workflow with Local + API Models
+
+One of the most powerful patterns is combining local models for execution with premium API models (Claude Opus, Gemini Pro) for architecture and complex reasoning. This dramatically reduces API token costs while maintaining high-quality output.
+
+### Recommended Execution Models
+
+For actual code implementation, these local models provide excellent cost savings:
+
+**Fast Execution (Recommended):**
+- `qwen2.5-coder:3b` - Fast and capable, works best when tasks are broken into multiple focused plan files rather than one long context
+
+**Better Quality:**
+- `deepseek-coder:6.7b-instruct-q4_0` - Higher quality output, slightly slower but more reliable for complex tasks
+
+### Strategy 1: Architect & Builder Workflow
+
+Don't waste expensive API tokens on boilerplate code. Use premium models purely for high-level design.
+
+**Step 1: The Architect (Claude Opus / Gemini Pro)**
+
+Prompt the premium model with this instruction:
+
+```
+Act as an Expert Software Architect and Principal Engineer. Your task is to design a comprehensive Technical Specification Document for the feature/system requested below.
+
+CRITICAL INSTRUCTION TO SAVE TOKENS:
+DO NOT write the actual implementation code. DO NOT write full functions. Your output must ONLY contain high-level architecture, logic flows, file structures, and strict pseudocode.
+
+Please provide the output in clean Markdown format with the following sections:
+1. System Overview: A brief summary of how the solution works.
+2. File Structure: A tree representation of the files to be created or modified.
+3. Tech Stack & Dependencies: Any specific libraries, modules, or APIs needed.
+4. Data Flow / State Management: How data moves between components.
+5. Step-by-Step Logic (Pseudocode): The exact logical steps for core algorithms, edge cases, and security considerations.
+6. Execution Order: A numbered list of which file/component should be built first.
+
+Here is the feature I want to build:
+[DESCRIBE YOUR FEATURE HERE]
+```
+
+**Step 2: The Builder (Gemini Flash / Local Model)**
+
+Take the Technical Spec from Claude and feed it to a cheaper/free executor:
+
+```
+Act as a Senior Full-Stack Developer. I will provide you with a Technical Specification Document written by an Expert Architect.
+
+Your task is to write the COMPLETE, production-ready, and fully functional code based EXACTLY on this specification.
+
+Rules:
+1. Follow the file structure and execution order provided.
+2. Write clean, well-commented code.
+3. Do not skip any logic mentioned in the pseudocode.
+4. Output the code block by block, clearly stating the filename above each code block.
+
+Here is the Technical Specification:
+[PASTE CLAUDE'S SPEC HERE]
+```
+
+Use:
+- **Gemini 3 Flash** - Blazing fast, huge context window, very cheap for mass execution
+- **Local qwen2.5-coder:3b** - Free, fast, works great with focused specs
+- **Local deepseek-coder:6.7b** - Free, better quality for complex implementations
+
+### Strategy 2: Output Diffs Only (Anti-Rewrite)
+
+One of the biggest token drains is when AI rewrites 500 lines when you only asked to change 3 lines.
+
+**Always end your prompts with:**
+
+```
+Only provide the code that changed, with comments indicating where to insert it.
+NEVER rewrite entire files that haven't changed.
+```
+
+### Strategy 3: Provide a "Map", Not the "Territory" (Skeletal Context)
+
+When debugging large projects, don't paste entire files into chat.
+
+**Solution:**
+1. Generate a directory tree structure (use `tree` command or OpenCode)
+2. Provide the "Directory Map" to the AI
+3. Let the AI determine which files it actually needs to see
+4. Only then provide the specific file contents
+
+### Strategy 4: Offload Trivial Tasks to Local Models
+
+Since you have Ollama and VSCodium (Continue.dev/OpenCode), use them as your first line of defense:
+
+**Autocomplete (0 tokens):**
+- Let `qwen2.5-coder:1.5b-base` handle line-by-line autocomplete as you type
+
+**Small Refactoring (0 tokens):**
+- Use local `deepseek-r1:1.5b` in OpenCode terminal for:
+  - Regex generation
+  - Code formatting
+  - Simple unit tests
+  - Variable renaming
+
+**Only escalate to premium APIs (Claude Opus/Gemini Pro) when:**
+- Hitting a dead end (complex Nginx config bugs, intricate state management)
+- Architectural decisions needed
+- Complex debugging requiring deep reasoning
+
+### Cost Comparison Example
+
+**Traditional approach (all premium API):**
+- Architect + Implementation: ~50,000 tokens ($$$)
+
+**Hybrid approach:**
+- Architect (Claude Opus): ~5,000 tokens ($)
+- Implementation (Gemini Flash or local): ~0-1,000 tokens (¢ or free)
+- **Savings: ~90%**
+
+**For complete master prompts and detailed strategies, see:**
+- [guides/COST_SAVING_PROMPTS.md](guides/COST_SAVING_PROMPTS.md) - Battle-tested prompts for Architect & Builder workflow
+
 ## Quick Start
 
 - Read `docs/quick-start.md`
