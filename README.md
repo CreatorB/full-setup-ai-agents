@@ -65,6 +65,7 @@ These are not all configured as primary agents in the same way, but they are par
 - `https://opencode.ai` or your OpenCode access path -> strong hosted coding workflow option, often good for free-tier experimentation depending on account access
 - `https://build.nvidia.com` -> worth testing for free hosted model access and experimentation
 - `https://zed.dev` -> Zed IDE is worth trying if you want another AI-friendly editor workflow
+- [Another free LLM API's list](https://github.com/mnfst/awesome-free-llm-apis)
 
 ## Supported Environments
 
@@ -175,7 +176,7 @@ When debugging large projects, don't paste entire files into chat.
 
 ### Strategy 4: Offload Trivial Tasks to Local Models
 
-Since you have Ollama and VSCodium (Continue.dev/OpenCode), use them as your first line of defense:
+If we use Ollama and VSCodium (Continue.dev/OpenCode), use them as your first line of defense:
 
 **Autocomplete (0 tokens):**
 - Let `qwen2.5-coder:1.5b-base` handle line-by-line autocomplete as you type
