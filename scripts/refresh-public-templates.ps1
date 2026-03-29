@@ -27,8 +27,17 @@ $mappings = @(
     @{ Source = "C:\Users\Alendia\scripts\pmodels.cmd"; Destination = Join-Path $repoRoot "templates\local-gpu-4gb\scripts\pmodels.cmd" },
     @{ Source = "C:\Users\Alendia\scripts\pqcoder.cmd"; Destination = Join-Path $repoRoot "templates\local-gpu-4gb\scripts\pqcoder.cmd" },
     @{ Source = "C:\Users\Alendia\scripts\ptito.cmd"; Destination = Join-Path $repoRoot "templates\local-gpu-4gb\scripts\ptito.cmd" },
-    @{ Source = "\\wsl$\kali-linux\home\creatorbe\.hermes\config.yaml"; Destination = Join-Path $repoRoot "templates\local-gpu-4gb\hermes\config.yaml" },
-    @{ Source = "\\wsl$\kali-linux\home\creatorbe\.hermes\SOUL.md"; Destination = Join-Path $repoRoot "templates\local-gpu-4gb\hermes\SOUL.md" }
+    @{ Source = "C:\Users\Alendia\scripts\ocdev.cmd"; Destination = Join-Path $repoRoot "templates\local-gpu-4gb\scripts\ocdev.cmd" },
+    @{ Source = "C:\Users\Alendia\scripts\ocqcoder.cmd"; Destination = Join-Path $repoRoot "templates\local-gpu-4gb\scripts\ocqcoder.cmd" },
+    @{ Source = "C:\Users\Alendia\scripts\octito.cmd"; Destination = Join-Path $repoRoot "templates\local-gpu-4gb\scripts\octito.cmd" },
+    @{ Source = "C:\Users\Alendia\scripts\ocmodel.cmd"; Destination = Join-Path $repoRoot "templates\local-gpu-4gb\scripts\ocmodel.cmd" },
+    @{ Source = "C:\Users\Alendia\scripts\ocmodels.cmd"; Destination = Join-Path $repoRoot "templates\local-gpu-4gb\scripts\ocmodels.cmd" },
+    @{ Source = "C:\Users\Alendia\scripts\ocplan.cmd"; Destination = Join-Path $repoRoot "templates\local-gpu-4gb\scripts\ocplan.cmd" },
+    @{ Source = "C:\Users\Alendia\scripts\ocislami.cmd"; Destination = Join-Path $repoRoot "templates\local-gpu-4gb\scripts\ocislami.cmd" },
+    @{ Source = "C:\Users\Alendia\scripts\octeach.cmd"; Destination = Join-Path $repoRoot "templates\local-gpu-4gb\scripts\octeach.cmd" },
+    @{ Source = "C:\Users\Alendia\.openclaw\openclaw.json5"; Destination = Join-Path $repoRoot "templates\local-gpu-4gb\openclaw\openclaw.json5" },
+    @{ Source = "C:\Users\Alendia\.openclaw\personality.md"; Destination = Join-Path $repoRoot "templates\local-gpu-4gb\openclaw\personality.md" },
+    @{ Source = "C:\Users\Alendia\.openclaw\.env.example"; Destination = Join-Path $repoRoot "templates\local-gpu-4gb\openclaw\.env.example" }
 )
 
 foreach ($map in $mappings) {
@@ -43,11 +52,6 @@ foreach ($map in $mappings) {
     Write-Host "Refreshed $($map.Destination)"
 }
 
-$envExample = Join-Path $repoRoot "templates\local-gpu-4gb\hermes\.env.example"
-@(
-    "OPENAI_API_KEY=ollama",
-    "OPENAI_BASE_URL=http://host.docker.internal:11434/v1",
-    "LLM_MODEL=fredrezones55/Jan-code:Q4_K_M"
-) | Set-Content -Path $envExample -Encoding ASCII
-
+Write-Host ""
 Write-Host "Public template refresh complete. Review docs if commands or model strategy changed."
+Write-Host "NOTE: .env.example is NOT overwritten by this script — edit it manually in the repo."

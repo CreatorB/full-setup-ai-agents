@@ -9,7 +9,7 @@ Practical setup guides, reusable templates, and sync workflows for running local
 
 This repository documents a real developer stack built around:
 - Aider
-- Hermes Agent
+- OpenClaw (replaced Hermes Agent)
 - Pi Coding Agent
 - OpenCode
 - Continue.dev
@@ -44,7 +44,7 @@ This repository tries to be more useful:
 | Agent | Best Use In This Repo |
 |---|---|
 | Aider | Primary Windows-native repo editing |
-| Hermes Agent | Secondary workflow, planning, WSL-based usage |
+| OpenClaw | Secondary agent, personal AI assistant, native Windows (replaced Hermes) |
 | Pi | Lean customizable coding harness |
 
 ## Related Tooling Ecosystem

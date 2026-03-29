@@ -1,0 +1,21 @@
+# OpenClaw Telegram Channel Config
+# Phase 2: Telegram as PRIMARY (and only) messaging channel
+#
+# Setup steps:
+#   1. Buka Telegram, cari @BotFather
+#   2. Kirim: /newbot
+#   3. Beri nama: "OpenClaw Alendia"
+#   4. Beri username: openclaw_alendia_bot (unik, akhiran _bot)
+#   5. Copy token, set di .env: TELEGRAM_BOT_TOKEN=<token>
+#   6. Jalankan: openclaw configure --section channels
+#   7. Test: kirim "/status" ke bot
+
+bot_token_env: TELEGRAM_BOT_TOKEN    # read from .env, JANGAN hardcode token
+dmPolicy: pairing                     # unknown sender = pairing code dulu
+mode: polling                         # atau webhook jika ada public URL
+
+# Monitored groups (for notif-monitor skill)
+# monitored_groups:
+#   - "Guru SD/SMP"
+#   - "Freelance Client"
+#   - "Kampus IF"
