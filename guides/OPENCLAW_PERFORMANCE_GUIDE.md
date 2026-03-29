@@ -28,11 +28,12 @@ Onboarding auto-detects models and may set `contextWindow` to 262144 (256K token
 
 ### The Fix
 
-Set `contextWindow: 16384` (16K) for all local models in `~/.openclaw/openclaw.json`. This is the sweet spot for 4GB VRAM:
+Set `contextWindow: 32768` (32K) for all local models in `~/.openclaw/openclaw.json`. This is the safe maximum for 4GB VRAM:
 
-- **16K context** = fits comfortably in 4GB VRAM with Q4_K_M quantization
-- **32K context** = works but slower, some models may partially offload to CPU
+- **32K context** = safe maximum for 4GB VRAM with Q4_K_M quantized models (1-4GB)
+- **16K context** = too small, may cause broken responses (system prompt truncated)
 - **64K+ context** = will cause OOM errors or extreme slowness
+- **262K context** (onboard default) = will crash, requires 37GB+ RAM
 
 For cloud models (Gemini, NVIDIA), context window can remain large since inference happens remotely.
 
@@ -46,8 +47,8 @@ For cloud models (Gemini, NVIDIA), context window can remain large since inferen
         "models": [
           {
             "id": "aikid123/Qwen3-coder:latest",
-            "contextWindow": 16384,
-            "maxTokens": 4096
+            "contextWindow": 32768,
+            "maxTokens": 8192
           }
         ]
       },
