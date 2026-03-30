@@ -10,7 +10,7 @@ Practical setup guides, reusable templates, and sync workflows for running local
 <p align="center">
   <img src="assets/images/openclaw-creatorbe-telegram-bot.jpeg" alt="OpenClaw Telegram Bot in action" width="400" />
   <br />
-  <em>OpenClaw personal AI assistant running via Telegram with local Ollama models</em>
+  <em>OpenClaw personal AI assistant running via Telegram both local and cloud model</em>
 </p>
 
 This repository documents a real developer stack built around:
