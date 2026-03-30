@@ -6,10 +6,13 @@ Unified quick reference for all local coding agents on Windows.
 
 | Command | Purpose |
 |---|---|
+| `aphi` | Phi4-mini reasoning (--raw-model --edit-format whole) |
 | `ajan` | Daily coding with Jan-code |
 | `aqcoder` | Fast code with Qwen3-coder |
 | `atito` | Backup coding with CodeTito |
 | `amodels` | Show available Aider models |
+
+**Note:** Phi4-mini requires `--raw-model --edit-format whole` flags for proper interaction with Aider. The `aphi` command includes these automatically.
 
 ## OpenClaw (Secondary Agent — Windows Native, Replaces Hermes)
 
@@ -17,9 +20,11 @@ Unified quick reference for all local coding agents on Windows.
 
 | Command | Model | Purpose |
 |---|---|---|
-| `ocdev` | Jan-code | Daily coding (default) |
+| `ocphi` | Phi4-mini | Primary model (reasoning + tool calling) |
+| `ocdev` | Jan-code | Daily coding |
 | `ocqcoder` | Qwen3-coder | Fast code with thinking |
 | `ocplan` | Qwen3.5-opus | Heavy reasoning and planning |
+| `octool` | Phi4-mini | Tool calling mode (shell, skills, GitHub) |
 | `octito` | CodeTito | Backup coding model |
 | `octeach` | Jan-code + skills | Teaching assistant mode |
 | `ocislami` | Jan-code + skills | Islamic daily assistant mode |
@@ -63,6 +68,7 @@ Send these directly in the Telegram conversation with the bot:
 
 | Command | Purpose |
 |---|---|
+| `piphi` | Phi4-mini reasoning |
 | `pijan` | Daily coding with Jan-code |
 | `pqcoder` | Fast code with Qwen3-coder |
 | `ptito` | Backup coding with CodeTito |

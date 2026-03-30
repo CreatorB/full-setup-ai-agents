@@ -1,19 +1,25 @@
 # FUSE AI 🤖 (FUll SEtup AI Agents)
 
 ![Focus](https://img.shields.io/badge/LEGIT-local%20AI%20engineering-0F766E?style=flat-square)
-![Platform](https://img.shields.io/badge/platform-Windows%20%2B%20WSL-2563EB?style=flat-square)
+![Platform](https://img.shields.io/badge/platform-Windows%20Native-2563EB?style=flat-square)
 ![Runtime](https://img.shields.io/badge/runtime-Ollama-111827?style=flat-square)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](http://makeapullrequest.com)
 
 Practical setup guides, reusable templates, and sync workflows for running local AI coding agents with Ollama.
 
+<p align="center">
+  <img src="assets/images/openclaw-creatorbe-telegram-bot.jpeg" alt="OpenClaw Telegram Bot in action" width="400" />
+  <br />
+  <em>OpenClaw personal AI assistant running via Telegram with local Ollama models</em>
+</p>
+
 This repository documents a real developer stack built around:
-- Aider
-- OpenClaw (replaced Hermes Agent)
-- Pi Coding Agent
-- OpenCode
-- Continue.dev
-- Ollama
+- **Aider** — primary Windows-native repo editing agent
+- **OpenClaw** — personal AI assistant via Telegram with multi-agent and tool calling (replaced Hermes)
+- **Pi** — lean customizable coding harness
+- **Ollama** — local model runtime (9 models, auto-swap fallback chain)
+- **Continue.dev** — editor integration and autocomplete
+- **OpenCode** — hosted coding workflow option
 
 It is built for people who want a real local workflow for create, read, update, and delete tasks on actual project files, not just chat demos.
 
@@ -41,11 +47,13 @@ This repository tries to be more useful:
 
 ## Supported Agents
 
-| Agent | Best Use In This Repo |
-|---|---|
-| Aider | Primary Windows-native repo editing |
-| OpenClaw | Secondary agent, personal AI assistant, native Windows (replaced Hermes) |
-| Pi | Lean customizable coding harness |
+| Agent | Runtime | Default Model | Best Use |
+|---|---|---|---|
+| Aider | Windows native | Jan-code | Primary repo editing, file CRUD |
+| OpenClaw | Windows native (Node.js) | Phi4-mini | Personal AI assistant via Telegram, tool calling, multi-agent |
+| Pi | Windows native | Jan-code | Lean customizable coding harness |
+
+OpenClaw replaced Hermes Agent (WSL-based). No WSL dependency required anymore.
 
 ## Related Tooling Ecosystem
 
@@ -74,19 +82,41 @@ These are not all configured as primary agents in the same way, but they are par
 
 ## Current Local GPU 4GB Model Strategy
 
-- `fredrezones55/Jan-code:Q4_K_M` -> daily coding default
-- `aikid123/Qwen3-coder:latest` -> fast code and chat with thinking
-- `fredrezones55/qwen3.5-opus:4b` -> complex thinking code and heavier work
-- `relational/orlex:latest` -> backup reasoning and planning model
-- `rardiolata/CodeTito:latest` -> backup coding model
-- `codegemma:2b` -> autocomplete-oriented editor helper
-- `nomic-embed-text:latest` -> embeddings only, not for chat/coding
+### Local Models (Ollama)
+
+| Model | Size | Role | Tool Calling |
+|---|---|---|---|
+| `phi4-mini:3.8b-q4_K_M` | 2.5 GB | **OpenClaw primary** — tool calling + step-by-step reasoning | Yes |
+| `fredrezones55/Jan-code:Q4_K_M` | 2.7 GB | **Aider/Pi default** — balanced daily coding | No |
+| `aikid123/Qwen3-coder:latest` | 1.4 GB | Fast code and chat with thinking | No |
+| `fredrezones55/qwen3.5-opus:4b` | 3.4 GB | Complex reasoning and heavier work | No |
+| `softw8/Nanbeige4.1-3B-q4_K_M` | 2.5 GB | Backup tool calling | Yes |
+| `relational/orlex:latest` | 3.3 GB | Backup reasoning and planning | No |
+| `rardiolata/CodeTito:latest` | 2.0 GB | Backup coding | No |
+| `codegemma:2b` | 1.6 GB | Autocomplete (editor integration) | No |
+| `nomic-embed-text:latest` | 274 MB | Embeddings only, not for chat/coding | No |
+
+### Cloud Fallbacks (Optional, Last Resort)
+
+| Provider | Model | Purpose |
+|---|---|---|
+| Google | Gemini 2.5 Flash (free tier) | Long context (1M tokens), tool calling |
+| NVIDIA | Llama 3.3 70B (free tier) | High-quality fallback |
+
+Cloud models are only used when all local models fail. See [OpenClaw Model Guide](guides/OPENCLAW_MODEL_GUIDE.md) for the full fallback chain.
+
+### OpenClaw Auto-Swap Fallback Chain
+
+```
+Phi4-mini → Qwen3-coder → Jan-code → Qwen3.5-opus → Orlex → CodeTito → Nanbeige → Gemini Flash → NVIDIA Llama
+(local)     (local)        (local)    (local)         (local)  (local)    (local)     (cloud free)   (cloud free)
+```
 
 ## Environment Comparison
 
 | Environment | Status | Best Default | Notes |
 |---|---|---|---|
-| Local GPU 4GB | Tested | `fredrezones55/Jan-code:Q4_K_M` | Daily coding default with a multi-model role split |
+| Local GPU 4GB | Tested | `phi4-mini:3.8b-q4_K_M` (OpenClaw) / `Jan-code` (Aider) | Multi-model role split with auto-swap fallback chain |
 | Local CPU Only | Recommended | NovaforgeAI small models or API-backed providers | Good contribution target for future validation |
 
 ## Cost-Saving Strategies: Hybrid Workflow with Local + API Models
@@ -248,29 +278,39 @@ cscript scripts\ollama\setup-ollama-startup.vbs
 
 ## Documentation Map
 
+### Agents
+- `docs/agents/openclaw-agent.md` - **OpenClaw setup, multi-agent, Telegram, skills, cloud fallback**
+- `docs/agents/aider.md` - Aider configuration and usage
+- `docs/agents/pi-agent.md` - Pi agent setup
+- `docs/agents/continue-dev.md` - Continue.dev editor integration
+- `docs/agents/opencode.md` - OpenCode hosted workflow
+
+### Guides
+- **`guides/OPENCLAW_MODEL_GUIDE.md`** - Model strategy, Phi4-mini, fallback chain, VRAM tuning
+- **`guides/OPENCLAW_PERFORMANCE_GUIDE.md`** - 4GB VRAM optimization, timeouts, context window, disk management
+- **`guides/AGENT_COMMANDS.md`** - All launcher commands for Aider, OpenClaw, Pi
+- `guides/COST_SAVING_PROMPTS.md` - Architect & Builder workflow prompts
+
+### Setup
 - `docs/overview.md`
 - `docs/quick-start.md`
 - `docs/installation/local-gpu-4gb.md`
 - `docs/installation/local-cpu-only.md`
-- `docs/agents/aider.md`
-- `docs/agents/hermes-agent.md`
-- `docs/agents/pi-agent.md`
-- `docs/agents/continue-dev.md`
-- `docs/agents/opencode.md`
 - `docs/models/model-strategy.md`
-- `docs/models/novaforgeai-cpu-only.md`
-- `docs/models/cpu-only-provider-strategy.md`
+
+### Operations
+- `docs/operations/security.md` - Security model, pairing, data privacy
 - `docs/operations/backup-and-restore.md`
 - `docs/operations/update-workflow.md`
 - `docs/operations/contributor-sync-guide.md`
 - `docs/operations/troubleshooting.md`
-- `docs/operations/security.md`
-- `docs/contribution-guide.md`
-- **`scripts/ollama/README.md`** - Ollama auto-start utilities
+
+### Utilities
+- `scripts/ollama/README.md` - Ollama auto-start utilities
 
 ## Why Back Up Agent Configs at All?
 
-If you use Aider, Hermes, Pi, Ollama, custom launchers, and local model routing, your setup becomes part of your engineering environment.
+If you use Aider, OpenClaw, Pi, Ollama, custom launchers, and local model routing, your setup becomes part of your engineering environment.
 
 Backing it up gives you:
 - a faster restore path on a new machine
