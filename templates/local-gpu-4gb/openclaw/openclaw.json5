@@ -77,6 +77,15 @@
         "ollama/fredrezones55/Jan-code:Q4_K_M": {
           streaming: false
         }
+      },
+      // Context pruning: 120m reduces background CPU cycles on work PCs
+      // (30m default causes frequent background timer activity even when idle)
+      contextPruning: {
+        mode: "cache-ttl",
+        ttl: "120m"
+      },
+      heartbeat: {
+        every: "60m"
       }
     }
   },

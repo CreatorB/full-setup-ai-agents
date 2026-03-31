@@ -196,22 +196,46 @@ show open issues in CreatorB/fuse-ai-agents
 /model ollama/aikid123/Qwen3-coder:latest
 ```
 
-## Built-in Skills (8 Active)
+## Built-in Skills
 
-| Skill | Description | Requires |
-|---|---|---|
-| coding-agent | Delegate coding tasks to Codex/Claude/Pi | - |
-| gh-issues | Manage GitHub issues, PRs, CI runs | `gh` CLI |
-| github | GitHub operations via `gh` CLI | `gh` CLI |
-| healthcheck | Host security hardening and diagnostics | - |
-| himalaya | Read/send email via IMAP/SMTP | `himalaya` CLI |
-| node-connect | Diagnose OpenClaw node connections | - |
-| skill-creator | Create and audit custom AgentSkills | - |
-| weather | Weather forecasts via wttr.in | - |
+| Skill | Status | Description | Requires |
+|---|---|---|---|
+| coding-agent | Active | Delegate coding tasks to Codex/Claude/Pi | - |
+| gh-issues | Active | Manage GitHub issues, PRs, CI runs | `gh` CLI (system-wide) |
+| github | Active | GitHub operations via `gh` CLI | `gh` CLI (system-wide) |
+| healthcheck | Active | Host security hardening and diagnostics | - |
+| node-connect | Active | Diagnose OpenClaw node connections | - |
+| skill-creator | Active | Create and audit custom AgentSkills | - |
+| weather | Active | Weather forecasts via wttr.in | - |
+| himalaya | Disabled | Read/send email via IMAP/SMTP | `himalaya` CLI (removed) |
 
-### Email Setup (Himalaya)
+### Skill Status Notes
 
-Himalaya supports multiple email accounts. Config file: `~/.config/himalaya/config.toml`
+**himalaya (email) — disabled:** The `himalaya` binary and config (`~/.config/himalaya/config.toml`) have been removed. Email credentials are no longer stored on disk. To re-enable: install himalaya and recreate the config.
+
+**gh/gh-issues (GitHub) — active via system install:** `gh` is installed system-wide via `choco install gh`. Both GitHub skills remain ready. To fully disable, uninstall with `choco uninstall gh` (Admin PowerShell required).
+
+### Disabling Skills on a Work PC
+
+Skills are auto-detected by binary presence on `PATH`. To disable a skill: remove its binary.
+
+```powershell
+# Disable himalaya (email)
+Remove-Item ~\.config\himalaya\config.toml -Force   # removes credentials
+Remove-Item C:\Users\<username>\scripts\himalaya.exe -Force
+
+# Disable gh (GitHub) — requires uninstalling system-wide
+choco uninstall gh  # Admin PowerShell
+
+# Verify skill status
+openclaw skills list
+```
+
+After removal, the skill shows `△ needs setup` instead of `✓ ready` and OpenClaw will not attempt to use it.
+
+### Email Setup (Himalaya) — Reference
+
+If you want to re-enable email in a future setup, himalaya supports multiple accounts via `~/.config/himalaya/config.toml`:
 
 ```toml
 # Example: Gmail account
@@ -236,8 +260,6 @@ message.send.backend.auth.cmd = "echo YOUR_APP_PASSWORD"
 ```
 
 For Gmail: generate an App Password at https://myaccount.google.com/apppasswords
-
-To add more accounts, copy the block and change `[accounts.NAME]`, email, login, and password.
 
 Verify: `himalaya account doctor personal`
 

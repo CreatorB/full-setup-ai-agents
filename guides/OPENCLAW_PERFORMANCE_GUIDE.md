@@ -122,7 +122,7 @@ This automatically prunes sessions older than 14 days and rotates logs at 5MB.
 
 ## Context Pruning
 
-Enable automatic context pruning to keep conversations within the 16K window:
+Enable automatic context pruning to keep conversations within the 32K window:
 
 ```json
 {
@@ -134,7 +134,7 @@ Enable automatic context pruning to keep conversations within the 16K window:
       },
       "contextPruning": {
         "mode": "cache-ttl",
-        "ttl": "30m"
+        "ttl": "120m"
       }
     }
   }
@@ -142,8 +142,62 @@ Enable automatic context pruning to keep conversations within the 16K window:
 ```
 
 - `reserveTokensFloor: 8000` — always keep 8K tokens free for the next response
-- `contextPruning.ttl: 30m` — prune cached context older than 30 minutes
+- `contextPruning.ttl: 120m` — prune cached context older than 120 minutes (increased from 30m to reduce background CPU cycles)
 - Use `/compact` in Telegram when conversations get long
+
+**Why 120m instead of 30m?** With `ttl: 30m`, OpenClaw checks and clears cached context every 30 minutes even when idle. On a work PC this adds unnecessary background CPU activity. 120m is a better balance — context still gets pruned regularly, but background cycles are 4x less frequent.
+
+## Gateway Background CPU Usage
+
+The OpenClaw gateway is a persistent Node.js process that runs continuously in the background. On a work PC, this causes intermittent CPU spikes even when no AI inference is running.
+
+### Root Causes
+
+| Source | Behavior | Impact |
+|---|---|---|
+| Telegram long-polling | Keeps a persistent HTTP connection to Telegram; reconnects every ~30s when idle | Periodic CPU on reconnect |
+| Node.js event loop | Node.js process always alive, GC cycles run periodically | Low but constant background CPU |
+| Context pruning | Background timer checks context age (now 120m interval) | Minimal after tuning |
+| Session maintenance | Prunes old sessions at `pruneAfter` interval (14d) | Very occasional |
+
+### Mitigation Options
+
+**Option 1: Stop gateway when not needed (most effective)**
+
+```powershell
+# Stop — no more Telegram polling, near-zero CPU
+openclaw gateway stop
+
+# Restart when you need the bot
+openclaw gateway
+```
+
+**Option 2: Remove the auto-start entry (if installed as Windows service)**
+
+```powershell
+# If installed with: openclaw gateway install --port 18789
+# Remove with:
+openclaw gateway uninstall
+```
+
+Then start manually when needed: `openclaw gateway`
+
+**Option 3: Keep running, reduce polling overhead**
+
+The config changes already applied for 120m context pruning help, but Telegram polling itself cannot be disabled without stopping the gateway. This is inherent to how Telegram bots work.
+
+### Checking Gateway Resource Usage
+
+```powershell
+# Check which Node.js processes are running
+tasklist /FI "IMAGENAME eq node.exe"
+
+# Check OpenClaw gateway status
+openclaw channels status
+
+# View gateway logs
+openclaw channels logs
+```
 
 ## Loop Detection
 
@@ -245,9 +299,11 @@ openclaw channels logs
 
 | Issue | Cause | Fix |
 |---|---|---|
-| "model requires more system memory" | contextWindow too high | Set `contextWindow: 16384` in openclaw.json |
+| "model requires more system memory" | contextWindow too high | Set `contextWindow: 32768` in openclaw.json |
 | Agent timeout | Model not loaded in VRAM | Pre-warm model, increase timeouts |
 | GPU 100% hang | Multiple models trying to load | Set `OLLAMA_MAX_LOADED_MODELS=1` |
 | Slow responses | Model partially on CPU | Use smaller model (Qwen3-coder 1.4GB) |
 | Wrong model after `/new` | Stale session routing | Clear sessions in `~/.openclaw/agents/*/sessions/` |
 | Tool calling fails | Model too small for tools | Switch to Nanbeige or Gemini via `/model` |
+| CPU spikes on work PC | Telegram long-polling + Node.js event loop | Stop gateway when not in use: `openclaw gateway stop` |
+| High idle CPU | contextPruning TTL too short | Set `contextPruning.ttl: "120m"` in openclaw.json |
