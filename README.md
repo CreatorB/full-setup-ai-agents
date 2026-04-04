@@ -74,6 +74,7 @@ These are not all configured as primary agents in the same way, but they are par
 - `https://build.nvidia.com` -> worth testing for free hosted model access and experimentation
 - `https://zed.dev` -> Zed IDE is worth trying if you want another AI-friendly editor workflow
 - [Another free LLM API's list](https://github.com/mnfst/awesome-free-llm-apis)
+- [Awesome MCP Servers](https://github.com/punkpeye/awesome-mcp-servers) — curated list of MCP servers for extending tool capabilities
 
 ## Supported Environments
 
@@ -122,6 +123,8 @@ Phi4-mini → Qwen3-coder → Jan-code → Qwen3.5-opus → Orlex → CodeTito �
 ## Cost-Saving Strategies: Hybrid Workflow with Local + API Models
 
 One of the most powerful patterns is combining local models for execution with premium API models (Claude Opus, Gemini Pro) for architecture and complex reasoning. This dramatically reduces API token costs while maintaining high-quality output.
+
+Also you can use Claude Code as an agent with free-tier API keys from OpenRouter (e.g., qwen3 models) instead of paid Claude API. See [Claude Code + OpenRouter Integration Guide](https://openrouter.ai/docs/guides/coding-agents/claude-code-integration) for setup instructions.
 
 ### Recommended Execution Models
 
