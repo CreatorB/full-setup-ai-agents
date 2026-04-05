@@ -126,6 +126,23 @@ One of the most powerful patterns is combining local models for execution with p
 
 Also you can use Claude Code as an agent with free-tier API keys from OpenRouter (e.g., qwen3 models) instead of paid Claude API. See [Claude Code + OpenRouter Integration Guide](https://openrouter.ai/docs/guides/coding-agents/claude-code-integration) for setup instructions.
 
+## ⚠️ AI Cost Warning
+
+> **Recommendation:** Use **Claude Pro ($20/month)** with the official
+> [Claude Code](https://claude.ai/code) extension rather than
+> OpenRouter pay-as-you-go API.
+>
+> In agentic mode (Zed, Claude Code), a single prompt can
+> trigger **20–50+ API calls automatically** — each with full context.
+> Real (in my) case: **$11.65 spent in one day** from just a 2 prompts
+> using Claude Opus via OpenRouter.
+>
+> If you must use an API, always set a **spending limit** on your
+> platform if available and use
+> cheaper models (Sonnet / Qwen free) for execution tasks.
+> OpenRouter's also offers Enable 1% discount on all LLMs
+> Consent to OpenRouter using your inputs/outputs to improve the product.
+
 ### Recommended Execution Models
 
 For actual code implementation, these local models provide excellent cost savings:
@@ -162,7 +179,7 @@ Here is the feature I want to build:
 [DESCRIBE YOUR FEATURE HERE]
 ```
 
-**Step 2: The Builder (Gemini Flash / Local Model)**
+**Step 2: The Builder (Gemini Flash / Minimax 2.5 / Local Model)**
 
 Take the Technical Spec from Claude and feed it to a cheaper/free executor:
 
