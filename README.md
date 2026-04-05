@@ -5,7 +5,7 @@
 ![Runtime](https://img.shields.io/badge/runtime-Ollama-111827?style=flat-square)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](http://makeapullrequest.com)
 
-Practical setup guides, reusable templates, and sync workflows for running local AI coding agents with Ollama.
+Practical setup guides, reusable templates, and sync workflows for running local AI coding agents with Ollama and any other compatible tools.
 
 <p align="center">
   <img src="assets/images/openclaw-creatorbe-telegram-bot.jpeg" alt="OpenClaw Telegram Bot in action" width="400" />
