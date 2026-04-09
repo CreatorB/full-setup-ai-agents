@@ -253,8 +253,26 @@ If we use Ollama and VSCodium (Continue.dev/OpenCode), use them as your first li
 - Implementation (Gemini Flash or local): ~0-1,000 tokens (¢ or free)
 - **Savings: ~90%**
 
+GPT,Llama models also good in tool calling mode, so you can use them for tool orchestration,bash,deploy,etc while letting other models handle the actual code generation.
+
 **For complete master prompts and detailed strategies, see:**
-- [guides/COST_SAVING_PROMPTS.md](guides/COST_SAVING_PROMPTS.md) - Battle-tested prompts for Architect & Builder workflow
+- [guides/COST_SAVING_PROMPTS.md](guides/COST_SAVING_PROMPTS.md) - Battle-tested prompts for Architect & Builder workflow, also use the magic of DCP plugins to manage your context and token usage in opencode, this is a quick summary of my patterns for maximizing output while minimizing tokens.
+
+```
+1. AGENTS.md → model fallback chain
+2. DCP       → 20-40% saving ctx
+3. Plan mode → focused & minimal iterations
+4. Session/task → keep context clean
+5. /dcp sweep {n} → prune irrelevant context
+6. /compact       → aggressive compression
+```
+
+```
+1. /dcp context  ← check current state
+2. /dcp sweep 10 ← prune least relevant ctx
+3. /dcp context  ← confirm pruning results
+4. /compact      ← last resort
+```
 
 ## Quick Start
 

@@ -362,6 +362,108 @@ Most modern AI coding assistants support custom prompts. Save these as templates
 - Cursor: Settings > Prompts
 - Aider: `.aider.prompts.md`
 
+## Affordable AI Subscription Services
+
+For tasks requiring cloud AI models, these services offer budget-friendly options:
+
+| Provider | URL | Notes |
+|---|---|---|
+| **z.ai** | https://z.ai | Affordable subscription plans |
+| **Minimax** | https://www.minimax.io | Competitive pricing |
+| **Deepseek** | https://deepseek.com | Cost-effective for many tasks |
+
+## OpenCode Context Optimization Workflow
+
+OpenCode with DCP plugin provides automated context management. Here's the recommended workflow:
+
+### Quick Reference: DCP Commands
+
+```
+1. /dcp context       ← Check token status first
+2. /dcp sweep 10     ← Prune last 10 tool calls manually  
+3. /dcp context       ← Verify if context is clean enough
+4. /compact          ← Only if still over 80% full
+```
+
+### DCP Auto-Pruning Strategy (20-40% Savings Automatically)
+
+DCP runs automatically in background with 4 strategies:
+- **Deduplication** → Remove duplicate tool calls (read same file 3x → keep 1)
+- **Purge Errors** → Remove error tool inputs from 4+ turns ago
+- **AI Discard** → AI actively discards irrelevant context
+- **AI Extract** → AI saves important info before discarding
+
+### Context Management Priority
+
+```
+1. AGENTS.md          → Free, no chat tokens consumed
+2. DCP auto-pruning   → 20-40% savings without effort
+3. Plan mode first    → Avoid wasteful iterations
+4. Session per task   → Clean context for each task
+5. /dcp sweep manual  → When context gets heavy
+6. /compact           → Last resort only
+```
+
+## OpenCode Configuration for Cost Efficiency
+
+### Recommended Config (`~/.config/opencode/opencode.jsonc`)
+
+```jsonc
+{
+  "$schema": "https://opencode.ai/config.json",
+  "provider": {
+    "ollama": {
+      "npm": "@ai-sdk/openai-compatible",
+      "options": { "baseURL": "http://localhost:11434/v1" },
+      "models": {
+        "fredrezones55/Jan-code:Q4_K_M": {
+          "name": "fredrezones55/Jan-code:Q4_K_M",
+          "tools": true
+        }
+      }
+    }
+  },
+  "plugin": [
+    "@tarquinen/opencode-dcp@latest",
+    "opencode-memory-plugin"
+  ]
+}
+```
+
+### OpenCode Daily Workflow
+
+1. **Start Session**
+   ```powershell
+   cd D:\IT\HSN\Developments\sources\projects\hydsoft
+   opencode .
+   ```
+
+2. **Essential Commands** (press `Ctrl+P` or type `/`):
+   ```
+   /review           → Review uncommitted changes
+   /review branch    → Compare branch changes
+   /compact          → Compress session when too long
+   /bug              → Report to GitHub
+   Tab               → Switch to other agents (Build, Kimi, etc.)
+   ```
+
+3. **DCP Manual Controls**:
+   ```
+   /dcp              → See all DCP commands
+   /dcp context      → Token breakdown (System/User/Assistant/Tools)
+   /dcp stats        → Total pruning statistics
+   /dcp sweep        → Prune tools from last user message
+   /dcp sweep 5      → Prune 5 most recent tool calls
+   ```
+
+### Memory Plugin Integration
+
+```bash
+/memory             → View all memories
+/memory add         → Add manual memory
+/memory clear       → Clear all memories
+```
+
 ## Conclusion
 
 The Architect & Builder workflow is not about being cheap—it's about being **smart with resources**.
