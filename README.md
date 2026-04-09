@@ -122,7 +122,13 @@ Phi4-mini → Qwen3-coder → Jan-code → Qwen3.5-opus → Orlex → CodeTito �
 
 ## Cost-Saving Strategies: Hybrid Workflow with Local + API Models
 
-One of the most powerful patterns is combining local models for execution with premium API models (Claude Opus, Gemini Pro) for architecture and complex reasoning. This dramatically reduces API token costs while maintaining high-quality output.
+While there are technically ways to exploit models and quotas using OpenCode, sorry i will not discuss those here but i will share some of the best strategies for maximizing output while minimizing API token costs, which is a critical part of running AI agents in a sustainable way.
+
+InshaAllah, with this blessed approach, the savings achieved will be more meaningful and sustainable. 🙏
+
+> *"Halal sustenance brings long-term blessings."*
+
+One of the most powerful patterns is combining local models for execution with premium API models (Claude Opus, Gemini Pro, GPT-4+) for architecture and complex reasoning. This dramatically reduces API token costs while maintaining high-quality output.
 
 Also you can use Claude Code as an agent with free-tier API keys from OpenRouter (e.g., qwen3 models) instead of paid Claude API. See [Claude Code + OpenRouter Integration Guide](https://openrouter.ai/docs/guides/coding-agents/claude-code-integration) for setup instructions.
 
