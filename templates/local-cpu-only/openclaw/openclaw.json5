@@ -1,21 +1,41 @@
 // OpenClaw config - JSON5 format, human-maintained
+// Primary: MiniMax-M2.7 (cloud) | Fallback: Ollama local
 {
-  // === PROVIDER: Ollama LOCAL ONLY (Phase 1-5) ===
+  // === PROVIDER: MiniMax PRIMARY (cloud) + Ollama LOCAL ===
   models: {
+    mode: "merge",
     providers: {
-      ollama: {
-        baseUrl: "http://127.0.0.1:11434/v1",
-        apiKey: "ollama-local",
-        api: "openai-completions", // PENTING: bukan "openai-responses" untuk Ollama
+      // MiniMax - PRIMARY (Anthropic-compatible API)
+      minimax: {
+        baseUrl: "https://api.minimax.io/anthropic",
+        apiKey: "env:MINIMAX_API_KEY",
+        api: "anthropic-messages",
         models: [
           {
-            id: "fredrezones55/Jan-code:Q4_K_M",
-            name: "Jan-code (Daily Default)",
+            id: "MiniMax-M2.7",
+            name: "MiniMax-M2.7 (Primary)",
+            reasoning: true,
+            input: ["text"],
+            cost: { input: 0, output: 0, cacheRead: 0, cacheWrite: 0 },
+            contextWindow: 204800,
+            maxTokens: 8192
+          }
+        ]
+      },
+      // Ollama - LOCAL FALLBACK (when offline)
+      ollama: {
+        baseUrl: "http://127.0.0.1:11434",
+        apiKey: "OLLAMA_API_KEY",
+        api: "ollama",
+        models: [
+          {
+            id: "phi4-mini:3.8b-q4_K_M",
+            name: "Phi4-mini (Local, Tools)",
             reasoning: false,
             input: ["text"],
             cost: { input: 0, output: 0, cacheRead: 0, cacheWrite: 0 },
             contextWindow: 32768,
-            maxTokens: 4096
+            maxTokens: 8192
           },
           {
             id: "aikid123/Qwen3-coder:latest",
@@ -24,7 +44,16 @@
             input: ["text"],
             cost: { input: 0, output: 0, cacheRead: 0, cacheWrite: 0 },
             contextWindow: 32768,
-            maxTokens: 4096
+            maxTokens: 8192
+          },
+          {
+            id: "fredrezones55/Jan-code:Q4_K_M",
+            name: "Jan-code (Daily)",
+            reasoning: false,
+            input: ["text"],
+            cost: { input: 0, output: 0, cacheRead: 0, cacheWrite: 0 },
+            contextWindow: 32768,
+            maxTokens: 8192
           },
           {
             id: "fredrezones55/qwen3.5-opus:4b",
@@ -33,16 +62,16 @@
             input: ["text"],
             cost: { input: 0, output: 0, cacheRead: 0, cacheWrite: 0 },
             contextWindow: 32768,
-            maxTokens: 4096
+            maxTokens: 8192
           },
           {
             id: "relational/orlex:latest",
-            name: "Orlex (Backup Planning)",
+            name: "Orlex (Planning)",
             reasoning: false,
             input: ["text"],
             cost: { input: 0, output: 0, cacheRead: 0, cacheWrite: 0 },
             contextWindow: 32768,
-            maxTokens: 4096
+            maxTokens: 8192
           },
           {
             id: "rardiolata/CodeTito:latest",
@@ -51,46 +80,206 @@
             input: ["text"],
             cost: { input: 0, output: 0, cacheRead: 0, cacheWrite: 0 },
             contextWindow: 32768,
-            maxTokens: 4096
+            maxTokens: 8192
+          },
+          {
+            id: "softw8/Nanbeige4.1-3B-q4_K_M:latest",
+            name: "Nanbeige4.1 (Tool Calling)",
+            reasoning: false,
+            input: ["text"],
+            cost: { input: 0, output: 0, cacheRead: 0, cacheWrite: 0 },
+            contextWindow: 32768,
+            maxTokens: 8192
+          }
+        ]
+      },
+      // Google - CLOUD FALLBACK
+      google: {
+        baseUrl: "https://generativelanguage.googleapis.com/v1beta",
+        apiKey: "env:GEMINI_API_KEY",
+        api: "google-generative-ai",
+        models: [
+          {
+            id: "gemini-2.5-flash",
+            name: "Gemini 2.5 Flash (Free Tier)",
+            reasoning: true,
+            input: ["text", "image"],
+            contextWindow: 1048576,
+            maxTokens: 8192
           }
         ]
       }
     }
-    // Cloud providers: Phase 6, commented out, default OFF
-    // See plan 001 Phase 6 for details
   },
 
-  // === AGENT: Local auto-swap fallback chain ===
+  // === AGENT: MiniMax primary, Ollama fallback chain ===
   agents: {
     defaults: {
       model: {
-        primary: "ollama/fredrezones55/Jan-code:Q4_K_M",
+        primary: "minimax/MiniMax-M2.7",
         fallbacks: [
+          "ollama/phi4-mini:3.8b-q4_K_M",
           "ollama/aikid123/Qwen3-coder:latest",
+          "ollama/fredrezones55/Jan-code:Q4_K_M",
           "ollama/fredrezones55/qwen3.5-opus:4b",
           "ollama/relational/orlex:latest",
-          "ollama/rardiolata/CodeTito:latest"
+          "ollama/rardiolata/CodeTito:latest",
+          "ollama/softw8/Nanbeige4.1-3B-q4_K_M:latest",
+          "google/gemini-2.5-flash"
         ]
       },
       models: {
-        // Disable streaming jika tool calls bermasalah
         "ollama/fredrezones55/Jan-code:Q4_K_M": {
           streaming: false
         }
+      },
+      workspace: "C:\\Users\\Alendia\\.openclaw\\workspace",
+      contextPruning: {
+        mode: "cache-ttl",
+        ttl: "120m"
+      },
+      compaction: {
+        mode: "default",
+        reserveTokensFloor: 8000,
+        timeoutSeconds: 120
+      },
+      blockStreamingDefault: "off",
+      heartbeat: {
+        every: "60m"
+      },
+      subagents: {
+        maxConcurrent: 1,
+        runTimeoutSeconds: 120
       }
+    },
+    list: [
+      {
+        id: "main",
+        default: true,
+        name: "MiniMax-M2.7",
+        model: {
+          primary: "minimax/MiniMax-M2.7",
+          fallbacks: [
+            "ollama/phi4-mini:3.8b-q4_K_M",
+            "ollama/aikid123/Qwen3-coder:latest",
+            "ollama/fredrezones55/Jan-code:Q4_K_M",
+            "ollama/fredrezones55/qwen3.5-opus:4b",
+            "ollama/relational/orlex:latest",
+            "ollama/rardiolata/CodeTito:latest",
+            "ollama/softw8/Nanbeige4.1-3B-q4_K_M:latest",
+            "google/gemini-2.5-flash"
+          ]
+        },
+        identity: {
+          name: "MiniMax-M2.7"
+        }
+      },
+      {
+        id: "tcall",
+        name: "Phi4-tcall",
+        model: {
+          primary: "ollama/phi4-mini:3.8b-q4_K_M",
+          fallbacks: [
+            "ollama/softw8/Nanbeige4.1-3B-q4_K_M:latest",
+            "google/gemini-2.5-flash"
+          ]
+        },
+        identity: {
+          name: "Phi4-tcall"
+        }
+      }
+    ]
+  },
+
+  // === TOOLS ===
+  tools: {
+    profile: "coding",
+    web: {
+      search: { timeoutSeconds: 15 },
+      fetch: { timeoutSeconds: 15 }
+    },
+    loopDetection: {
+      enabled: true,
+      warningThreshold: 5,
+      criticalThreshold: 10
+    },
+    exec: {
+      backgroundMs: 5000,
+      timeoutSec: 120
+    }
+  },
+
+  // === BINDINGS ===
+  bindings: [
+    { agentId: "main", match: { channel: "telegram", accountId: "default" } }
+  ],
+
+  // === MESSAGES ===
+  messages: {
+    responsePrefix: "",
+    queue: { mode: "steer", debounceMs: 1500, cap: 10 },
+    inbound: { debounceMs: 1500 }
+  },
+
+  // === COMMANDS ===
+  commands: {
+    native: "auto",
+    nativeSkills: "auto",
+    restart: true,
+    ownerDisplay: "raw"
+  },
+
+  // === SESSION ===
+  session: {
+    dmScope: "per-channel-peer",
+    maintenance: {
+      mode: "enforce",
+      pruneAfter: "14d",
+      maxEntries: 200,
+      rotateBytes: "5mb"
+    }
+  },
+
+  // === CHANNELS: Telegram ===
+  channels: {
+    telegram: {
+      enabled: true,
+      dmPolicy: "pairing",
+      botToken: "env:TELEGRAM_BOT_TOKEN",
+      groupPolicy: "allowlist",
+      streaming: "off"
     }
   },
 
   // === GATEWAY ===
   gateway: {
     port: 18789,
-    auth: { mode: "password" }
+    mode: "local",
+    bind: "loopback",
+    auth: {
+      mode: "token",
+      token: "env:OPENCLAW_GATEWAY_TOKEN"
+    },
+    tailscale: {
+      mode: "off",
+      resetOnExit: false
+    }
   },
 
-  // === CHANNELS: Telegram only (Phase 2) ===
-  channels: {
-    telegram: {
-      dmPolicy: "pairing" // unknown sender = pairing code dulu
+  // === SKILLS ===
+  skills: {
+    install: {
+      nodeManager: "npm"
+    }
+  },
+
+  // === PLUGINS ===
+  plugins: {
+    entries: {
+      ollama: {
+        enabled: true,
+        config: {}
+      }
     }
   }
 }
