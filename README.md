@@ -73,7 +73,7 @@ These are not all configured as primary agents in the same way, but they are par
 - `https://opencode.ai` or your OpenCode access path -> strong hosted coding workflow option, often good for free-tier experimentation depending on account access
 - `https://build.nvidia.com` -> worth testing for free hosted model access and experimentation
 - `https://zed.dev` -> Zed IDE is worth trying if you want another AI-friendly editor workflow
-- [Another free LLM API's list](https://github.com/mnfst/awesome-free-llm-apis)
+- [Another free LLM API's list](https://github.com/mnfst/awesome-free-llm-apis), [Free AI Tools Compare](https://github.com/ShaikhWarsi/free-ai-tools)
 - [Awesome MCP Servers](https://github.com/punkpeye/awesome-mcp-servers) — curated list of MCP servers for extending tool capabilities
 
 ## Supported Environments
